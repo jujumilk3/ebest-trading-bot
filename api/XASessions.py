@@ -34,8 +34,7 @@ class XASession:
             self.ActiveX.set_parent(parent=parent)
 
     def login(self, svrtype=0):
-        real_server = True if constants.MOD == 'REAL' else False
-        server_url = 'hts.ebestsec.co.kr' if real_server else 'demo.ebestsec.co.kr'
+        server_url = 'hts.ebestsec.co.kr' if constants.MOD == 'REAL' else 'demo.ebestsec.co.kr'
         user_id = constants.LOGIN_ID
         user_password = constants.PASSWORD
         result = self.ActiveX.ConnectServer(server_url, 200001)

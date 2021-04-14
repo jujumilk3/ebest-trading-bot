@@ -101,7 +101,7 @@ class K3_(XAReal):
             self.ActiveX.AdviseRealData()
 
     def UnadviseRealDataWithKey(self, code):
-        self.onadvise.pop(code,None)
+        self.onadvise.pop(code, None)
         self.ActiveX.UnadviseRealDataWithKey(code)
 
     def UnadviseRealData(self):
@@ -132,7 +132,7 @@ class JC0(XAReal):
             self.ActiveX.AdviseRealData()
 
     def UnadviseRealDataWithKey(self, code):
-        self.onadvise.pop(code,None)
+        self.onadvise.pop(code, None)
         self.ActiveX.UnadviseRealDataWithKey(code)
 
     def UnadviseRealData(self):
@@ -172,8 +172,7 @@ class SC1(XAReal):
                   'deal_code': int(self.ActiveX.GetFieldData(self.outblock, 'bnstp')),
                   'lineseq': self.ActiveX.GetFieldData(self.outblock, 'lineseq'),
                   'trcode': self.ActiveX.GetFieldData(self.outblock, 'trcode'),
-                  'order_number': int(self.ActiveX.GetFieldData(self.outblock, 'ordno'))
-                  }
+                  'order_number': int(self.ActiveX.GetFieldData(self.outblock, 'ordno'))}
 
         if self.parent:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -199,8 +198,7 @@ class C01(XAReal):
                   'deal_price': int(float(self.ActiveX.GetFieldData(self.outblock, 'cheprice')) * 100),
                   'deal_quantity': int(self.ActiveX.GetFieldData(self.outblock, 'chevol')),
                   'deal_code': int(self.ActiveX.GetFieldData(self.outblock, 'dosugb')),
-                  'order_number': int(self.ActiveX.GetFieldData(self.outblock, 'ordno'))
-                  }
+                  'order_number': int(self.ActiveX.GetFieldData(self.outblock, 'ordno'))}
 
         if self.parent:
             self.parent.OnReceiveRealData(szTrCode, result)
@@ -220,7 +218,7 @@ class H1_(XAReal):
             self.ActiveX.AdviseRealData()
 
     def UnadviseRealDataWithKey(self, code):
-        self.onadvise.pop(code,None)
+        self.onadvise.pop(code, None)
         self.ActiveX.UnadviseRealDataWithKey(code)
 
     def UnadviseRealData(self):
@@ -252,7 +250,7 @@ class HA_(XAReal):
             self.ActiveX.AdviseRealData()
 
     def UnadviseRealDataWithKey(self, code):
-        self.onadvise.pop(code,None)
+        self.onadvise.pop(code, None)
         self.ActiveX.UnadviseRealDataWithKey(code)
 
     def UnadviseRealData(self):
@@ -284,7 +282,7 @@ class JH0(XAReal):
             self.ActiveX.AdviseRealData()
 
     def UnadviseRealDataWithKey(self, code):
-        self.onadvise.pop(code,None)
+        self.onadvise.pop(code, None)
         self.ActiveX.UnadviseRealDataWithKey(code)
 
     def UnadviseRealData(self):

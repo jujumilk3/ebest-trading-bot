@@ -82,9 +82,8 @@ class CSPAT00600(XAQuery):
     def OnReceiveData(self, tr_code):
         result = {'shcode': self.ActiveX.GetFieldData(self.outblock1, 'IsuNo', 0).strip(),
                   'order_quantity': int(self.ActiveX.GetFieldData(self.outblock1, 'OrdQty', 0).strip()),
-                  'order_price':  int(float(self.ActiveX.GetFieldData(self.outblock1, 'OrdPrc', 0).strip())),
-                  'deal_code':  self.ActiveX.GetFieldData(self.outblock1, 'BnsTpCode', 0).strip(),
-
+                  'order_price': int(float(self.ActiveX.GetFieldData(self.outblock1, 'OrdPrc', 0).strip())),
+                  'deal_code': self.ActiveX.GetFieldData(self.outblock1, 'BnsTpCode', 0).strip(),
                   'timestamp': self.ActiveX.GetFieldData(self.outblock2, 'OrdTime', 0).strip(),
                   'shorten_code': self.ActiveX.GetFieldData(self.outblock2, 'ShtnIsuNo', 0).strip(),
                   'order_amount': int(self.ActiveX.GetFieldData(self.outblock2, 'OrdAmt', 0).strip()),
@@ -102,14 +101,12 @@ class CSPAT00800(XAQuery):
         self.aps = 30
 
     def Query(self, order_number, account_number, password, shcode, order_quantity):
-
         self.ActiveX.LoadFromResFile(self.res_file)
         self.ActiveX.SetFieldData(self.inblock1, 'OrgOrdNo', 0, order_number)
         self.ActiveX.SetFieldData(self.inblock1, 'AcntNo', 0, account_number)
         self.ActiveX.SetFieldData(self.inblock1, 'InptPwd', 0, password)
         self.ActiveX.SetFieldData(self.inblock1, 'IsuNo', 0, shcode)
         self.ActiveX.SetFieldData(self.inblock1, 'OrdQty', 0, order_quantity)
-
         self.ActiveX.Request(0)
 
     def OnReceiveData(self, tr_code):
@@ -138,16 +135,14 @@ class CFOAT00100(XAQuery):
         self.ActiveX.SetFieldData(self.inblock1, 'OrdPrc', 0, order_price)
         self.ActiveX.SetFieldData(self.inblock1, 'BnsTpCode', 0, deal_code)
         self.ActiveX.SetFieldData(self.inblock1, 'FnoOrdprcPtnCode', 0, '00')
-
         self.ActiveX.Request(0)
 
     def OnReceiveData(self, tr_code):
         result = {'futcode': self.ActiveX.GetFieldData(self.outblock1, 'FnoIsuNo', 0).strip(),
-                  'deal_code':  self.ActiveX.GetFieldData(self.outblock1, 'BnsTpCode', 0).strip(),
+                  'deal_code': self.ActiveX.GetFieldData(self.outblock1, 'BnsTpCode', 0).strip(),
                   'order_price': float(self.ActiveX.GetFieldData(self.outblock1, 'OrdPrc', 0).strip()),
                   'order_quantity': int(self.ActiveX.GetFieldData(self.outblock1, 'OrdQty', 0).strip()),
-                  'order_number': int(self.ActiveX.GetFieldData(self.outblock2, 'OrdNo', 0).strip()),
-                  }
+                  'order_number': int(self.ActiveX.GetFieldData(self.outblock2, 'OrdNo', 0).strip())}
 
         if self.parent:
             self.parent.OnReceiveData(tr_code, result)
@@ -160,14 +155,12 @@ class CFOAT00300(XAQuery):
         self.aps = 30
 
     def Query(self, order_number, account_number, password, futcode, order_quantity):
-
         self.ActiveX.LoadFromResFile(self.res_file)
         self.ActiveX.SetFieldData(self.inblock1, 'OrgOrdNo', 0, order_number)
         self.ActiveX.SetFieldData(self.inblock1, 'AcntNo', 0, account_number)
         self.ActiveX.SetFieldData(self.inblock1, 'Pwd', 0, password)
         self.ActiveX.SetFieldData(self.inblock1, 'FnoIsuNo', 0, futcode)
         self.ActiveX.SetFieldData(self.inblock1, 'CancQty', 0, order_quantity)
-
         self.ActiveX.Request(0)
 
     def OnReceiveData(self, tr_code):
@@ -255,15 +248,16 @@ class t0424(XAQuery):
         super().__init__(parent=parent)
         self.aps = 1
 
-    def Query(self, 계좌번호='', 비밀번호='', 단가구분='1', 체결구분='0', 단일가구분='0', 제비용포함여부='1', CTS_종목번호=''):
+    def Query(self, account_number='', password='', price_division='1', con_division='0', single_price_division='0',
+              fee_included='1', cts_number=''):
         self.ActiveX.LoadFromResFile(self.res_file)
-        self.ActiveX.SetFieldData(self.inblock, 'accno', 0, 계좌번호)
-        self.ActiveX.SetFieldData(self.inblock, 'passwd', 0, 비밀번호)
-        self.ActiveX.SetFieldData(self.inblock, 'prcgb', 0, 단가구분)
-        self.ActiveX.SetFieldData(self.inblock, 'chegb', 0, 체결구분)
-        self.ActiveX.SetFieldData(self.inblock, 'dangb', 0, 단일가구분)
-        self.ActiveX.SetFieldData(self.inblock, 'charge', 0, 제비용포함여부)
-        self.ActiveX.SetFieldData(self.inblock, 'cts_expcode', 0, CTS_종목번호)
+        self.ActiveX.SetFieldData(self.inblock, 'accno', 0, account_number)
+        self.ActiveX.SetFieldData(self.inblock, 'passwd', 0, password)
+        self.ActiveX.SetFieldData(self.inblock, 'prcgb', 0, price_division)
+        self.ActiveX.SetFieldData(self.inblock, 'chegb', 0, con_division)
+        self.ActiveX.SetFieldData(self.inblock, 'dangb', 0, single_price_division)
+        self.ActiveX.SetFieldData(self.inblock, 'charge', 0, fee_included)
+        self.ActiveX.SetFieldData(self.inblock, 'cts_expcode', 0, cts_number)
         self.ActiveX.Request(0)
 
     def OnReceiveData(self, szTrCode):
@@ -281,43 +275,6 @@ class t0424(XAQuery):
                           'profit_and_loss': int(self.ActiveX.GetFieldData(self.outblock1, 'dtsunik', i).strip()),
                           'yield': float(self.ActiveX.GetFieldData(self.outblock1, 'sunikrt', i).strip()),
                           'fee': int(self.ActiveX.GetFieldData(self.outblock1, 'fee', i).strip())}
-            result.append(stock_dict)
-
-        if self.parent:
-            self.parent.OnReceiveData(szTrCode, result)
-
-
-# 선물/옵션 잔고평가(이동평균)
-class t0441(XAQuery):
-    def __init__(self, parent):
-        super().__init__(parent=parent)
-        self.aps = 1
-
-    def Query(self, 계좌번호='', 비밀번호='', CTS_종목번호='', CTS_매매구분=''):
-        self.ActiveX.LoadFromResFile(self.res_file)
-        self.ActiveX.SetFieldData(self.inblock, 'accno', 0, 계좌번호)
-        self.ActiveX.SetFieldData(self.inblock, 'passwd', 0, 비밀번호)
-        self.ActiveX.SetFieldData(self.inblock, 'cts_expcode', 0, CTS_종목번호)
-        self.ActiveX.SetFieldData(self.inblock, 'cts_medocd', 0, CTS_매매구분)
-        self.ActiveX.Request(0)
-
-    def OnReceiveData(self, szTrCode):
-        result = []
-        nCount = self.ActiveX.GetBlockCount(self.outblock1)
-        for i in range(nCount):
-            stock_dict = {'shcode': self.ActiveX.GetFieldData(self.outblock1, 'expcode', i).strip(),
-                          'current_price': int(float(self.ActiveX.GetFieldData(self.outblock1, 'price', i).strip())),
-                          'deal_type': self.ActiveX.GetFieldData(self.outblock1, 'medosu', i).strip(),
-                          'deal_code': int(self.ActiveX.GetFieldData(self.outblock1, 'medocd', i).strip()),
-                          'remain_quantity': int(self.ActiveX.GetFieldData(self.outblock1, 'jqty', i).strip()),
-                          'capable_quantity': int(self.ActiveX.GetFieldData(self.outblock1, 'cqty', i).strip()),
-                          'deal_price_avg': float(self.ActiveX.GetFieldData(self.outblock1, 'pamt', i).strip()),
-                          'deal_price_total': int(self.ActiveX.GetFieldData(self.outblock1, 'mamt', i).strip()),
-                          'total_evaluation_price': int(self.ActiveX.GetFieldData(self.outblock1, 'appamt', i).strip()),
-                          'dtsunik': int(self.ActiveX.GetFieldData(self.outblock1, 'dtsunik', i).strip()),
-                          'profit_and_loss': int(self.ActiveX.GetFieldData(self.outblock1, 'dtsunik1', i).strip()),
-                          'yield': float(self.ActiveX.GetFieldData(self.outblock1, 'sunikrt', i).strip()),
-                          'sysprocseq': self.ActiveX.GetFieldData(self.outblock1, 'sysprocseq', i).strip()}
             result.append(stock_dict)
 
         if self.parent:
